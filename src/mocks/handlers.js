@@ -30,7 +30,6 @@ export const handlers = [
   rest.get("/api/power/live", (req, res, ctx) => {
     const points = makePowerPoints();
     return res(
-      ctx.log("Mock API response", { request: req, response: res }),
       ctx.status(200),
       ctx.json({ points })
     );

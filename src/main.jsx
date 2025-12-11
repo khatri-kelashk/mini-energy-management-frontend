@@ -7,12 +7,12 @@ import store from "./app/store";
 import './index.css';
 
 // start msw in dev (browser)
-if (import.meta.env.DEV || import.meta.env.VITE_ENABLE_MOCK === "1") {
+// if (import.meta.env.DEV || import.meta.env.VITE_ENABLE_MOCK === "1") {
   const { worker } = await import("./mocks/browser");
   worker.start({
     onUnhandledRequest: "bypass",
   });
-}
+// }
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(

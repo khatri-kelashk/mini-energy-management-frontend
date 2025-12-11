@@ -29,7 +29,11 @@ const sampleAlarms = Array.from({ length: 45 }).map((_, i) => {
 export const handlers = [
   rest.get("/api/power/live", (req, res, ctx) => {
     const points = makePowerPoints();
-    return res(ctx.status(200), ctx.json({ points }));
+    return res(
+      ctx.log("Mock API response", { request: req, response: response }),
+      ctx.status(200),
+      ctx.json({ points })
+    );
   }),
 
   rest.get("/api/alarms", (req, res, ctx) => {
@@ -58,12 +62,23 @@ export const handlers = [
     });
     const solar = dates.map(() => Math.round(100 + Math.random() * 200));
     const grid = dates.map(() => Math.round(200 + Math.random() * 300));
-    const siteInfo = { id: siteId, name: `Site ${siteId}`, location: "Karachi, PK" };
+    const siteInfo = {
+      id: siteId,
+      name: `Site ${siteId}`,
+      location: "Karachi, PK",
+    };
     const payload = {
       siteInfo,
-      mode: ["Grid Following", "Microgrid", "Standalone"][Math.floor(Math.random()*3)],
+      mode: ["Grid Following", "Microgrid", "Standalone"][
+        Math.floor(Math.random() * 3)
+      ],
       energyStats: { dates, solar, grid },
-      alarmSummary: { down: Math.floor(Math.random()*2), critical: Math.floor(Math.random()*5), major: Math.floor(Math.random()*7), minor: Math.floor(Math.random()*10) }
+      alarmSummary: {
+        down: Math.floor(Math.random() * 2),
+        critical: Math.floor(Math.random() * 5),
+        major: Math.floor(Math.random() * 7),
+        minor: Math.floor(Math.random() * 10),
+      },
     };
     return res(ctx.delay(300), ctx.status(200), ctx.json(payload));
   }),

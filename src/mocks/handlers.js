@@ -30,6 +30,7 @@ export const handlers = [
   rest.get("/api/power/live", (req, res, ctx) => {
     const points = makePowerPoints();
     return res(
+      ctx.delay(300),
       ctx.status(200),
       ctx.json({ points })
     );
